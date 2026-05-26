@@ -1,0 +1,1 @@
+us-central1-docker.pkg.dev/microservices-academy/images-wendell
