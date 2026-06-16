@@ -1,6 +1,9 @@
 import { DynamicModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Estudiante } from '../modules/estudiantes/entities/estudiante.entity';
+import { Sexo } from '../modules/sexos/entities/sexo.entity';
+import { Etnia } from '../modules/etnias/entities/etnia.entity';
 
 export const DatabaseProvider: DynamicModule = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
@@ -12,7 +15,7 @@ export const DatabaseProvider: DynamicModule = TypeOrmModule.forRootAsync({
     username: configService.get('USERNAME_DB'),
     password: configService.get('PASSWORD_DB'),
     database: configService.get('DATABASE'),
-    autoLoadEntities: configService.get('AUTOLOADENTITIES') === 'true',
+    entities: [Estudiante, Sexo, Etnia],
     synchronize: false,
   }),
 });
