@@ -5,8 +5,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 export const DatabaseProvider: DynamicModule = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
-  // Use useFactory, useClass, or useExisting
-  // to configure the DataSourceOptions.
   useFactory: (configService: ConfigService) => ({
     type: 'postgres',
     host: configService.get('HOST'),
@@ -14,8 +12,7 @@ export const DatabaseProvider: DynamicModule = TypeOrmModule.forRootAsync({
     username: configService.get('USERNAME_DB'),
     password: configService.get('PASSWORD_DB'),
     database: configService.get('DATABASE'),
-    entities: [],
-    autoLoadEntities: configService.get('AUTOLOADENTITIES'),
+    autoLoadEntities: configService.get('AUTOLOADENTITIES') === 'true',
     synchronize: false,
   }),
 });
